@@ -134,7 +134,7 @@ class RuleDecorator extends Rule
      * We do not override getJavascript() as it is defined as returning string
      *
      * @param bool $outputTriggers
-     * @return array
+     * @return array{callback: string, owner: ?string, message: string, triggers?: string[], chained?: array}
      * @throws \HTML_QuickForm2_Exception
      */
     public function getJavascriptParts(bool $outputTriggers = true): array
@@ -148,7 +148,7 @@ class RuleDecorator extends Rule
             $js['triggers'] = $triggers;
         }
 
-        if (count($this->decorated->chainedRules) > 1 || count($this->decorated->chainedRules[0]) > 0) {
+        if (\count($this->decorated->chainedRules) > 1 || \count($this->decorated->chainedRules[0]) > 0) {
             $chained = [];
             foreach ($this->decorated->chainedRules as $item) {
                 $multipliers = [];
