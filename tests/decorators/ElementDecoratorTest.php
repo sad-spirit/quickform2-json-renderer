@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace sad_spirit\html_quickform2\json_renderer\tests\decorators;
 
+use PHPUnit\Framework\TestCase;
 use sad_spirit\html_quickform2\json_renderer\decorators\ElementDecorator;
 use sad_spirit\html_quickform2\json_renderer\exceptions\LogicException;
 use HTML_QuickForm2_Container_Group as Group;
 use HTML_QuickForm2_Element_InputCheckbox as InputCheckbox;
 use HTML_QuickForm2_Element_InputText as InputText;
+use HTML_QuickForm2_Element_Select as Select;
 use HTML_QuickForm2_Rule_Empty as EmptyRule;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Test for decorator used for "scalar" Elements when building client-side rules
@@ -33,6 +34,17 @@ class ElementDecoratorTest extends TestCase
 
         $this::assertEquals('qf.$v("foo")', $decorator->getJavascriptValue(false));
         $this::assertEquals('"foo"', $decorator->getJavascriptValue(true));
+    }
+
+    public function testGetJavascriptValueForMultipleSelect(): void
+    {
+        $select    = new Select('foo', ['id' => 'bar']);
+        $decorator = new ElementDecorator($select);
+
+        $this::assertEquals('"foo"', $decorator->getJavascriptValue(true));
+
+        $select->setAttribute('multiple');
+        $this::assertEquals('"foo[]"', $decorator->getJavascriptValue(true));
     }
 
     public function testForwardsAttributes(): void

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace sad_spirit\html_quickform2\json_renderer\decorators;
 
 use HTML_QuickForm2_Element as Element;
+use HTML_QuickForm2_Element_Select as Select;
 use HTML_QuickForm2_JavascriptBuilder as JavascriptBuilder;
 
 /**
@@ -38,7 +39,11 @@ class ElementDecorator extends Element
 
     public function getJavascriptValue($inContainer = false): string
     {
-        $name = JavascriptBuilder::encode($this->decorated->getName());
+        if ($this->decorated instanceof Select && null !== $this->decorated->getAttribute('multiple')) {
+            $name = JavascriptBuilder::encode($this->decorated->getName() . '[]');
+        } else {
+            $name = JavascriptBuilder::encode($this->decorated->getName());
+        }
         return $inContainer ? $name : "qf.\$v($name)";
     }
 
