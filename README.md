@@ -1,5 +1,9 @@
 # sad_spirit/quickform2_json_renderer
 
+[![Build Status](https://github.com/sad-spirit/quickform2-json-renderer/actions/workflows/continuous-integration.yml/badge.svg?branch=master)](https://github.com/sad-spirit/quickform2-json-renderer/actions?query=branch%3Amaster+workflow%3A%22Continuous+Integration%22)
+
+[![Static Analysis](https://github.com/sad-spirit/quickform2-json-renderer/actions/workflows/static-analysis.yml/badge.svg?branch=master)](https://github.com/sad-spirit/quickform2-json-renderer/actions?query=branch%3Amaster+workflow%3A%22Static+Analysis%22)
+
 This is a renderer implementation for [HTML_QuickForm2](https://github.com/pear/HTML_QuickForm2) package
 that converts an instance of `HTML_QuickForm2` to JSON. The resultant JSON representation can be used to rebuild 
 the form on client side allowing seamless integration with JavaScript frameworks.

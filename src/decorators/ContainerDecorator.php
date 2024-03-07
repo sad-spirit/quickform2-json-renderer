@@ -69,6 +69,12 @@ class ContainerDecorator extends Container
         throw new LogicException("Element modification is disallowed when building client-side rules");
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
+     */
     public function getIterator(): ContainerIterator
     {
         return $this->decorated->getIterator();
