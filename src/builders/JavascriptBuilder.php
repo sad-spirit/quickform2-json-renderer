@@ -28,7 +28,7 @@ class JavascriptBuilder extends BaseJavascriptBuilder
 {
     /**
      * Parts of client rules
-     * @var array<string, array<int, array<string, mixed>>>
+     * @var array<string, list<array<string, mixed>>>
      */
     protected array $ruleParts = [];
 
@@ -58,7 +58,7 @@ class JavascriptBuilder extends BaseJavascriptBuilder
      * We do not override getValidator() as it is defined as returning string
      *
      * @param string|null $formId Form "id" attribute, if null returns rules for all forms
-     * @return array
+     * @return list<array<string, mixed>>
      */
     public function getRules(?string $formId = null): array
     {

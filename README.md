@@ -11,7 +11,30 @@ Two main differences between this renderer and built-in `HTML_QuickForm2_Rendere
 
 ## Usage
 
-TBD
+```PHP
+use sad_spirit\html_quickform2\json_renderer\JsonRenderer;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use HTML_QuickForm2_Renderer as Renderer;
+
+Renderer::register('json', JsonRenderer::class);
+
+$form = new \HTML_QuickForm2('form-id');
+
+//
+// ... building the form ...
+//
+
+if ($form->validate()) {
+    //
+    // ... processing the form ...
+    //
+    return new JsonResponse(['success' => true]);
+}
+
+/** @var JsonRenderer $renderer */
+$renderer = $form->render(Renderer::factory('json'));
+return new JsonResponse($renderer->toArray());
+```
 
 ## JSON structure
 
@@ -21,7 +44,7 @@ TBD
 
 The renderer does not support 
  * Elements that contain JS setup code added via `HTML_QuickForm2_JavascriptBuilder::addElementJavascript()` other
-   than `HTML_QuickForm2_Container_Repeat`
- * `HTML_QuickForm2_Element_Script` used to insert inline JS into form.
+   than `HTML_QuickForm2_Container_Repeat`;
+ * `HTML_QuickForm2_Element_Script` elements used to insert inline JS into form.
 
 These should be reimplemented client-side using the framework of choice.
