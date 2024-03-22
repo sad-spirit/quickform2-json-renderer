@@ -191,6 +191,26 @@ class JsonRendererTest extends TestCase
         );
     }
 
+    public function testSingleCheckboxWithBrackets(): void
+    {
+        $form = new QuickForm('boxes', 'get', [], false);
+
+        $form->addCheckbox('unchecked[]', ['value' => 'no']);
+        $form->addCheckbox('checked[]', ['value' => 'yes'])
+            ->setAttribute('checked');
+
+        $form->render($this->renderer);
+        $array = $this->renderer->toArray();
+
+        $this::assertEquals(
+            [
+                'unchecked[]' => [],
+                'checked[]'   => ['yes']
+            ],
+            $array['values']
+        );
+    }
+
     public function testRenderWithStyle(): void
     {
         $form = new QuickForm('jsonStyle');

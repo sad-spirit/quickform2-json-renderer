@@ -325,8 +325,12 @@ class JsonRenderer extends Renderer
                 // This is only appended in element's __toString() method
                 $name .= '[]';
             }
-            if ('[]' === \substr($name, -2) && \array_key_exists($name, $this->values)) {
-                $value = \array_merge((array)$this->values[$name], (array)$value);
+            if ('[]' === \substr($name, -2)) {
+                if (!\array_key_exists($name, $this->values)) {
+                    $value = (array)$value;
+                } else {
+                    $value = \array_merge((array)$this->values[$name], (array)$value);
+                }
             }
             $this->values[$name] = $value;
         }
